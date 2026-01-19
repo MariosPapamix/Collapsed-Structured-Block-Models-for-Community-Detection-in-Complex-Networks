@@ -1,5 +1,5 @@
 # ============================================================
-# Case 2 (CORRECTED): Count SBM (Gamma–Poisson collapse)
+# Case 2: Count SBM (Gamma–Poisson collapse)
 #  - Simulate undirected count-SBM (Poisson)
 #  - Fit collapsed Gibbs (your gibbs_sbm_undir_scalar + make_log_m_gamma_poisson)
 #  - Produce: summary.txt, CSV tables, and PNG figures
@@ -54,14 +54,13 @@ sim_sbm_poisson <- function(z, Lambda) {
   Y
 }
 
-# ---- 3) Block posterior table (FIXED) ----
+# ---- 3) Block posterior table ----
 # This computes the conjugate posterior for each block intensity:
 #   lambda_{kℓ} | Y,z  ~ Gamma(a0 + S_{kℓ}, b0 + N_{kℓ})
 # where:
 #   S_{kk} = sum_{i<j in k} Y_ij,    N_{kk} = choose(n_k,2)
 #   S_{kℓ} = sum_{i in k, j in ℓ} Y_ij,  N_{kℓ} = n_k*n_ℓ,  for k<ℓ
 #
-# BUG FIX:
 # The mirroring (k,l)->(l,k) must NOT use `transmute(k=l, l=k)` because
 # dplyr creates columns sequentially; we use temporary names to swap safely.
 block_posterior_table <- function(Y, z, K, a0 = 1, b0 = 1) {
@@ -109,7 +108,7 @@ block_posterior_table <- function(Y, z, K, a0 = 1, b0 = 1) {
   
   upper <- dplyr::bind_rows(out)
   
-  # Safe swap via temp names (FIX)
+  # Safe swap via temp names 
   lower <- upper |>
     dplyr::filter(k != l) |>
     dplyr::rename(k_old = k, l_old = l) |>
@@ -206,7 +205,7 @@ save_process_diagram <- function(path_png) {
 
 set.seed(2)
 
-out_dir <- "case2_outputs_FIXED"
+out_dir <- "case2_outputs"
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 # --- Ground truth ---
@@ -281,7 +280,7 @@ saveRDS(
 )
 
 summary_txt <- c(
-  "=== Case 2 (FIXED): Count SBM (Gamma–Poisson collapsed) ===",
+  "=== Case 2: Count SBM (Gamma–Poisson collapsed) ===",
   sprintf("n = %d, K_true = %d, K_fit = %d", n, K_true, K),
   sprintf("Gamma prior: shape a = %g, rate b = %g", a0, b0),
   sprintf("ARI(true, MAP) = %.4f", ari_val),
@@ -334,7 +333,7 @@ if (requireNamespace("patchwork", quietly = TRUE)) {
 
 p_block <- plot_block_heatmap(
   block_tbl, K = K,
-  title = "Block intensities from collapsed Gamma–Poisson posterior (FIXED)"
+  title = "Block intensities from collapsed Gamma–Poisson posterior "
 )
 ggsave(file.path(out_dir, "block_intensity_heatmap.png"),
        p_block, width = 6, height = 5, dpi = 300)
