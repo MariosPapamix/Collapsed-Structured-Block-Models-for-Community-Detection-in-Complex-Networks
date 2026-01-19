@@ -1,6 +1,6 @@
 # ============================================================
 # Case 5+: Directed dyad-state SBM (collapsed Dirichlet–multinomial)
-# + summaries, tables, and images (all base R)
+# + summaries, tables, and images
 # ============================================================
 
 # ----------------------------
