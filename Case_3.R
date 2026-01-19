@@ -1,5 +1,5 @@
 # ============================================================
-# Case 3: Gaussian weighted SBM (NIG collapse) — corrected + visuals
+# Case 3: Gaussian weighted SBM (NIG collapse) 
 # ============================================================
 # Run top-to-bottom. Outputs PNGs + CSVs in your working directory.
 
@@ -195,7 +195,7 @@ draw_process_diagram <- function(file = "case3_process.png") {
   dev.off()
 }
 
-# ---- FIXED: sparse network plot (Fruchterman-Reingold needs positive weights) ----
+# ---- sparse network plot (Fruchterman-Reingold needs positive weights) ----
 plot_sparse_network <- function(Y, z, q = 0.99,
                                 file = "case3_network_sparse.png",
                                 seed = 1) {
@@ -258,7 +258,7 @@ plot_sparse_network <- function(Y, z, q = 0.99,
   wsgn <- igraph::E(g)$signed_weight
   igraph::E(g)$color <- ifelse(wsgn >= 0, "grey30", "grey70")
   
-  # FIX: explicitly pass positive weights to FR layout
+  # explicitly pass positive weights to FR layout
   lay <- igraph::layout_with_fr(g, weights = igraph::E(g)$weight)
   
   png(file, width = 900, height = 750, res = 150)
@@ -453,7 +453,7 @@ p_si <- plot_block_heatmap(Sigma_hat, "Posterior E[sigma_ab | z_hat] (NIG)")
 ggsave("case3_block_mu.png", p_mu, width = 5.5, height = 4.5, dpi = 200)
 ggsave("case3_block_sigma.png", p_si, width = 5.5, height = 4.5, dpi = 200)
 
-# FIXED call (no more FR negative-weight error)
+# call (no more FR negative-weight error)
 plot_sparse_network(Yw, z_hat, q = 0.99, file = "case3_network_sparse.png")
 
 # Optional “process” plots if z-samples are available in `fit`
