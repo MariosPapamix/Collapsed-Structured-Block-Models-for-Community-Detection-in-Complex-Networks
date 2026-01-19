@@ -1,11 +1,11 @@
 # ============================================================
-# Case 7 (upgraded): Zero-inflated Poisson SBM
+# Case 7: Zero-inflated Poisson SBM
 #   - collapsed in (p, lambda)
 #   - Z augmentation
 #   - saves figures + a block-summary table + a short narrative summary
 # ============================================================
 
-# ---- (Recommended) packages for nicer plots/tables ----
+# ---- Recommended packages for nicer plots/tables ----
 # install.packages(c("ggplot2","dplyr","tidyr","patchwork","knitr"))
 suppressPackageStartupMessages({
   ok <- requireNamespace("ggplot2", quietly = TRUE) &&
@@ -497,7 +497,4 @@ run_case7_zip_demo <- function(seed = 8,
   invisible(list(A = A, z_true = z_true, fit = fit, block_tbl = block_tbl, quick = quick))
 }
 
-# ============================================================
-# What you run (one command)
-# ============================================================
 res <- run_case7_zip_demo()
