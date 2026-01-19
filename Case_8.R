@@ -323,7 +323,7 @@ plot_prob_heatmap <- function(P, ord, main = "") {
 }
 
 # ============================================================
-# 7) EXPERIMENT (L=3, K=3) -- FIXED so it recovers communities
+# 7) EXPERIMENT (L=3, K=3) -- It recovers communities
 # ============================================================
 n <- 150
 K_true <- 3
